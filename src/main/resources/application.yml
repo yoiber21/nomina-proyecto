@@ -1,0 +1,16 @@
+# Properties file for local/dev environment
+# You need to configure the environment variable in your IDE, more info in README.md
+# Overrides application.yml default properties
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/company_managment
+    username: postgres
+    password: yoiber
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
