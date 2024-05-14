@@ -51,18 +51,7 @@ public class AuthServiceImpl implements IAuthService {
 
   @Override
   public AuthResponseDTO register(RegisterRequestDTO userToRegisterDto) {
-    Optional<UserEntity> existingUser = userRepository.findByUsername(userToRegisterDto.getUsername());
-    Optional<UserEntity> existingEmail = userRepository.findByEmail(userToRegisterDto.getEmail());
-    Optional<UserEntity> existingPhone = userRepository.findByPhone(userToRegisterDto.getPhone());
-    if (existingUser.isPresent()) {
-      throw new AlreadyExistsException("El nombre de usuario ya está en uso");
-    }
-    if (existingEmail.isPresent()) {
-      throw new AlreadyExistsException("El correo electronico ya está en uso");
-    }
-    if (existingPhone.isPresent()) {
-      throw new AlreadyExistsException("El número de teléfono ya está en uso");
-    }
+    validateRegisters(userToRegisterDto, userRepository);
 
     UserEntity user = UserEntity.builder()
         .username(userToRegisterDto.getUsername())
@@ -84,5 +73,20 @@ public class AuthServiceImpl implements IAuthService {
         .username(user.getUsername())
         .email(user.getEmail())
         .build();
+  }
+
+  static void validateRegisters(RegisterRequestDTO userToRegisterDto, IUserRepository userRepository) {
+    Optional<UserEntity> existingUser = userRepository.findByUsername(userToRegisterDto.getUsername());
+    Optional<UserEntity> existingEmail = userRepository.findByEmail(userToRegisterDto.getEmail());
+    Optional<UserEntity> existingPhone = userRepository.findByPhone(userToRegisterDto.getPhone());
+    if (existingUser.isPresent()) {
+      throw new AlreadyExistsException("El nombre de usuario ya está en uso");
+    }
+    if (existingEmail.isPresent()) {
+      throw new AlreadyExistsException("El correo electronico ya está en uso");
+    }
+    if (existingPhone.isPresent()) {
+      throw new AlreadyExistsException("El número de teléfono ya está en uso");
+    }
   }
 }
