@@ -1,6 +1,6 @@
 package org.example.nominatercercorte.service;
 
-import org.example.nominatercercorte.model.UserEntity;
+import org.example.nominatercercorte.model.Contract;
 import org.example.nominatercercorte.repository.RecruitmentRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -9,34 +9,32 @@ import java.util.Optional;
 @Service
 public class RecruitmentService {
 
-    private final RecruitmentRepository userRepository;
+  private final RecruitmentRepository contractRepository;
 
-    public RecruitmentService(RecruitmentRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+  public RecruitmentService(RecruitmentRepository contractRepository) {
+    this.contractRepository = contractRepository;
+  }
 
-    public List<UserEntity> getAllUsers() {
-        return userRepository.findAll();
-    }
+  public List<Contract> getAllContracts() {
+    return contractRepository.findAll();
+  }
 
-    public Optional<UserEntity> getUserById(Long id) {
-        return userRepository.findById(id);
-    }
+  public Optional<Contract> getContractById(Long id) {
+    return contractRepository.findById(id);
+  }
 
-    public UserEntity createUser(UserEntity user) {
-        return userRepository.save(user);
-    }
+  public Contract createContract(Contract contract) {
+    return contractRepository.save(contract);
+  }
 
-    public UserEntity updateUser(Long id, UserEntity user) {
+  public Contract updateContract(Long id, Contract contract) {
 
-        if (!userRepository.existsById(id)) {
+    contractRepository.existsById(id);
+    contract.setId(id);
+    return contractRepository.save(contract);
+  }
 
-        }
-        user.setId(id);
-        return userRepository.save(user);
-    }
-
-    public void deleteUser(Long id) {
-        userRepository.deleteById(id);
-    }
+  public void deleteContract(Long id) {
+    contractRepository.deleteById(id);
+  }
 }
