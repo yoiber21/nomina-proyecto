@@ -5,8 +5,8 @@
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/sistema-nomina-database
-    username: ydvowbeeak
-    password: qCIMXlnw9KAe$Q5t
+    username: kxxukgawts
+    password: skj0cwd9$fMkYfPo
   jpa:
     hibernate:
       ddl-auto: update
