@@ -20,6 +20,9 @@ jobs:
         with:
           java-version: '21'
 
+      - name: Set Spring profile
+        run: echo "SPRING_PROFILES_ACTIVE=prod" >> $GITHUB_ENV
+
       - name: Build with Gradle
         run: ./gradlew build -x test
 
