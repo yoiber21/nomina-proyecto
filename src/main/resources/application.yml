@@ -4,7 +4,7 @@
 
 spring:
   datasource:
-    url: jdbc:postgresql://azureprivatedns-host.microsoft.com:5432/sistema-nomina-database
+    url: jdbc:postgresql://sistema-nomina-database.postgres.database.azure.com:5432/sistema-nomina-database?sslmode=require
     username: uhnpboraki
     password: Yg$2yMDo1EChCeXg
   jpa:
