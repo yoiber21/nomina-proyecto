@@ -1,6 +1,8 @@
 package org.example.nominatercercorte.service;
 
+import org.example.nominatercercorte.exception.NotFoundException;
 import org.example.nominatercercorte.model.Contract;
+import org.example.nominatercercorte.model.UserEntity;
 import org.example.nominatercercorte.repository.RecruitmentRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -23,9 +25,12 @@ public class RecruitmentService {
     return contractRepository.findById(id);
   }
 
-  public Contract createContract(Contract contract) {
+public Contract createContract(Contract contract) {
+    UserEntity user = contractRepository.findById(contract.getUser().getId())
+        .orElseThrow(() -> new NotFoundException("User not found with id: " + contract.getUser().getId())).getUser();
+    contract.setUser(user);
     return contractRepository.save(contract);
-  }
+}
 
   public Contract updateContract(Long id, Contract contract) {
 
