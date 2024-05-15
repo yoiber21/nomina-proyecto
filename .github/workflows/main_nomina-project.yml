@@ -58,4 +58,4 @@ jobs:
         with:
           app-name: 'nomina-project'
           slot-name: 'Production'
-          package: 'nomina-project.jar'
+          package: 'nomina-tercer-corte-0.0.1-SNAPSHOT.jar'
