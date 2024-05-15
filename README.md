@@ -10,7 +10,7 @@ El sistema de nómina es una aplicación diseñada para gestionar eficientemente
 
 Puedes encontrar la documentación de la API en Swagger haciendo clic en el siguiente enlace:
 
-[Documentación en Swagger](http://localhost:8080/swagger-ui/index.html#/)
+[Documentación en Swagger](https://nomina-p.azurewebsites.net/swagger-ui/index.html)
 
 ## Instalación
 
