@@ -1,5 +1,6 @@
 package org.example.nominatercercorte.config;
 
+import com.itextpdf.text.DocumentException;
 import java.io.IOException;
 import org.example.nominatercercorte.service.PayrollService;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -15,7 +16,7 @@ public class PayrollScheduler {
   }
 
   @Scheduled(cron = "0 0 18 * * ?", zone = "America/Bogota")
-  public void executePayroll() throws IOException {
+  public void executePayroll() throws DocumentException, IOException {
     payrollService.executePayroll();
   }
 }
