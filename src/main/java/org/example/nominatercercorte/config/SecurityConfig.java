@@ -6,6 +6,7 @@ import org.example.nominatercercorte.jwt.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -16,9 +17,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 @RequiredArgsConstructor
-public class SecurityConfig {
-
+public class SecurityConfig  {
 // It defines how routes are secured, what filters are applied and how sessions are managed.
 
   private final JwtAuthenticationFilter jwtAuthenticationFilter;
@@ -29,9 +30,15 @@ public class SecurityConfig {
 
     return httpSecurity
         .authorizeHttpRequests(authRequest -> authRequest
-            .requestMatchers("/auth/**", "/h2A/**", "/swagger-ui/**", "/api-docs/**", "/ping/**", "/fake/**", "/v3/api-docs/**", "docs/specs/**", "/favicon.ico").permitAll()
+            .requestMatchers("/auth/**", "/h2A/**", "/swagger-ui/**",
+                "/api-docs/**", "/fake/**", "/v3/api-docs/**",
+                "docs/specs/**", "/favicon.ico",
+                "/swagger-resources/**", "/swagger-resources",
+                "swagger-ui.html", "/swagger-ui/**",
+                "/v3/api-docs/public-apis", "/v3/api-docs/public-apis/**")
+            .permitAll()
             .anyRequest().authenticated())
-        .sessionManagement( sessionManager -> sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        .sessionManagement(sessionManager -> sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authenticationProvider(authenticationProvider)
         .csrf(AbstractHttpConfigurer::disable)
         .headers(httpSecurityHeadersConfigurer -> {
@@ -43,4 +50,5 @@ public class SecurityConfig {
         })
         .build();
   }
+
 }

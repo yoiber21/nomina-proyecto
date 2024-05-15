@@ -1,16 +1,17 @@
 package org.example.nominatercercorte.service;
 
-import org.example.nominatercercorte.dto.AuthResponseDTO;
+import java.util.Map;
 import org.example.nominatercercorte.dto.RegisterRequestDTO;
+import org.example.nominatercercorte.dto.RegisterResponseDTO;
 import org.example.nominatercercorte.dto.UserEmployeeResponseDTO;
 
 public interface IUserEmployeeService {
 
   UserEmployeeResponseDTO getUserById(Long id);
 
-  UserEmployeeResponseDTO createUser(RegisterRequestDTO userEmployeeResponseDTO);
+  RegisterResponseDTO createUser(UserEmployeeResponseDTO userEmployeeResponseDTO);
 
-  UserEmployeeResponseDTO updateUser(UserEmployeeResponseDTO userEmployeeResponseDTO, String id);
+  Map<String, Object> updateUser(UserEmployeeResponseDTO userEmployeeResponseDTO, String id);
 
   void deleteUser(Long id);
 }

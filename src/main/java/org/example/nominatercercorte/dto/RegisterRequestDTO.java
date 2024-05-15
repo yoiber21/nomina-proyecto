@@ -3,6 +3,7 @@ package org.example.nominatercercorte.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import java.util.Date;
 import lombok.AllArgsConstructor;
@@ -37,10 +38,15 @@ public class RegisterRequestDTO {
   private String email;
 
   @NotBlank(message = "Phone cannot be empty")
+  @Pattern(regexp = "^\\+57\\d{10}$", message = "Phone number must be a valid Colombian number")
   private String phone;
 
   @NotBlank(message = "Address cannot be empty")
   private String address;
+
+  @JsonProperty("created_at")
   private Date createdAt;
+
+  @JsonProperty("updated_at")
   private Date updatedAt;
 }

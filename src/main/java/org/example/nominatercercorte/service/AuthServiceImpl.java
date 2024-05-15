@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.nominatercercorte.dto.AuthResponseDTO;
 import org.example.nominatercercorte.dto.LoginRequestDTO;
 import org.example.nominatercercorte.dto.RegisterRequestDTO;
+import org.example.nominatercercorte.dto.UserEmployeeResponseDTO;
 import org.example.nominatercercorte.exception.AlreadyExistsException;
 import org.example.nominatercercorte.exception.BadAuthenticationException;
 import org.example.nominatercercorte.jwt.JwtService;
@@ -75,10 +76,31 @@ public class AuthServiceImpl implements IAuthService {
         .build();
   }
 
-  static void validateRegisters(RegisterRequestDTO userToRegisterDto, IUserRepository userRepository) {
-    Optional<UserEntity> existingUser = userRepository.findByUsername(userToRegisterDto.getUsername());
-    Optional<UserEntity> existingEmail = userRepository.findByEmail(userToRegisterDto.getEmail());
-    Optional<UserEntity> existingPhone = userRepository.findByPhone(userToRegisterDto.getPhone());
+  static void validateRegisters(RegisterRequestDTO userToRegisterDto,
+                                IUserRepository userRepository) {
+    getExisitingUser(userRepository,
+        userToRegisterDto.getUsername(),
+        userToRegisterDto.getEmail(),
+        userToRegisterDto.getPhone()
+    );
+  }
+
+
+  static void validateRegisters(UserEmployeeResponseDTO userEmployeeResponseDTO,
+                                IUserRepository userRepository) {
+    getExisitingUser(userRepository, userEmployeeResponseDTO.getUsername(),
+        userEmployeeResponseDTO.getEmail(),
+        userEmployeeResponseDTO.getPhone()
+    );
+  }
+
+  private static void getExisitingUser(IUserRepository userRepository,
+                                       String username,
+                                       String email,
+                                       String phone) {
+    Optional<UserEntity> existingUser = userRepository.findByUsername(username);
+    Optional<UserEntity> existingEmail = userRepository.findByEmail(email);
+    Optional<UserEntity> existingPhone = userRepository.findByPhone(phone);
     if (existingUser.isPresent()) {
       throw new AlreadyExistsException("El nombre de usuario ya está en uso");
     }
